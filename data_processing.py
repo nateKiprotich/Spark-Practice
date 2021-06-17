@@ -1,10 +1,10 @@
 import requests
 from pyspark.sql import SparkSession
+from pyspark.sql.types import IntegerType
 import json
 
 
 spark = SparkSession.builder.getOrCreate()
-
 
 base_url = 'https://hacker-news.firebaseio.com/v0/'
 
@@ -36,5 +36,8 @@ if response.status_code == 200:
     print('Connection Established')
 
 
-print(top_resp.json())
+for i in top_resp.json():
+    it_url = item_url + str(i) +'.json'
+    it_resp = requests.get(it_url)
+    print(it_resp.json())
 
