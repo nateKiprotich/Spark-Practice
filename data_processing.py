@@ -6,38 +6,51 @@ import json
 
 spark = SparkSession.builder.getOrCreate()
 
-base_url = 'https://hacker-news.firebaseio.com/v0/'
 
-top_stories_url = base_url + 'topstories.json'
-item_url = base_url + 'item/'
-new_stories_url = base_url + 'newstories.json'
-ask_stories_url = base_url + 'askstories.json'
-show_stories_url = base_url + 'showstories.json'
-updates_url = base_url + 'updates.json'
+# This function takes in dictionary and prompts user to select a particular story
+def select_stories(story_types):
+    print('Select story category you want to view')
+    
+    for key, value in zip(story_types.keys(), story_types.values()):
+        print(str(key) + ' ' + value)
+    
+    selection = int(input('Enter your selection : '))
+
+    selection = story_types.get(selection)
+
+    return selection
 
 
-response = requests.get(base_url)
-top_resp = requests.get(top_stories_url)
-new_resp = requests.get(new_stories_url)
-ask_resp = requests.get(ask_stories_url)
+
+'''
 show_resp = requests.get(show_stories_url)
-updates_resp = requests.get(updates_url)
 
 
-print('Response : ' + str(response.status_code))
-print('Top Response : ' + str(top_resp.status_code))
-print('New stories response : ' + str(new_resp.status_code))
-print('Ask Stories respomse : ' + str(ask_resp.status_code))
-print('Show Stories response : ' + str(show_resp.status_code))
-print('Updates Response : ' + str(updates_resp.status_code))
-
-
-if response.status_code == 200:
-    print('Connection Established')
-
-
-for i in top_resp.json():
+for i in show_resp.json():
     it_url = item_url + str(i) +'.json'
     it_resp = requests.get(it_url)
     print(it_resp.json())
+'''
+
+if __name__ == "__main__":
+    
+    base_url = 'https://hacker-news.firebaseio.com/v0/'
+    
+    end_points = {
+                1: "topstories",
+                2: "newstories",
+                3: "askstories",
+                4: "showstories",
+                5: "updates"
+            }
+
+    selected_end_point = select_stories(end_points)
+    selected_end_point_url = base_url + selected_end_point + '.json'
+
+    item_url = base_url + 'item/'
+
+    print('Your will get stories for ' + selected_end_point + ' through url : ' + selected_end_point_url)
+
+    response = requests.get(selected_end_point_url)
+    print(response.json())
 
