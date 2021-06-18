@@ -15,4 +15,9 @@ Request
 ```bash
 pip install requests
 ```
+Pandas
+```bash
+pip install pandas
+```
+
 
