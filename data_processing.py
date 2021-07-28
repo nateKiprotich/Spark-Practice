@@ -23,13 +23,6 @@ def select_stories(story_types):
     return selection
 
 
-'''
-for i in show_resp.json():
-    it_url = item_url + str(i) +'.json'
-    it_resp = requests.get(it_url)
-    print(it_resp.json())
-'''
-
 if __name__ == "__main__":
         
     start_time = time.time()
@@ -61,6 +54,7 @@ if __name__ == "__main__":
     cnt = 0
 
     print('{} items to be stored'.format(item_count))
+    
     for i in returned_items:
         
         item_url = item_base_url + str(i) + '.json'

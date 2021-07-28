@@ -29,3 +29,15 @@ Currently the terminal seems frozen.
 5. Allow data to be saved. The program should prompt with available output formats
 
 
+
+Miscellaneousl
+
+First timed run:
+    it took 403.7154493331909 seconds to fetch 500 records
+
+Process flow:
+    API -> Pandas -> Spark
+
+Solution:
+    Eliminate use of pandas data frame and instead have the flow below:
+        API -> Spark
